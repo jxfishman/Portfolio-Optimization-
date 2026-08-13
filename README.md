@@ -672,7 +672,7 @@ Source: D-Wave, ![Operation and Timing](https://docs.dwavequantum.com/en/latest/
 
 `dwave.cloud.exceptions.SolverFailureError: The size of the states must not exceed 786432000.`
 
-With this problem I got an error from dwave. I tried reimplementing the NL model in a more memory efficient way but got poor results as can be seen in the chart below. I have not been able to resolve this poor performance. This model performed similarly to the first NL implementation on the DOW 30 problem .
+With this problem I got an error from dwave. I tried reimplementing the NL model in a more memory efficient way but got poor results as can be seen in the chart below. I have not been able to resolve this poor performance. This model performed similarly to my first NL implementation on the DOW 30 problem.
 
 ### Overall Performance
 
