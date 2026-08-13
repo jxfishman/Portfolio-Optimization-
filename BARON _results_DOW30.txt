@@ -1,0 +1,90 @@
+
+pssw: nbRNArvt
+ Job: 18675407
+
+ NEOS Server Version 6.0
+   Job#     : 18675407
+   Password : nbRNArvt
+   User     : 
+   Solver   : go:BARON:AMPL
+   Start    : 2026-04-09 07:31:25
+   End      : 2026-04-09 07:36:08
+   Host     : prod-sub-1.neos-server.org
+
+
+
+60 variables:
+	30 binary variables
+	30 nonlinear variables
+64 constraints; 240 nonzeros
+	1 nonlinear constraint
+	63 linear constraints
+	1 equality constraint
+	63 inequality constraints
+1 nonlinear objective; 30 nonzeros.
+
+BARON 25.12.10 (2025.12.10): threads=4
+BARON 25.12.10 (2025.12.10): 7 iterations, optimal within tolerances.
+Objective -0.004309053499
+Ticker,Weight
+AMZN,0, 0
+TRV,1, 1
+AAPL,0, 0
+IBM,1, 5
+HD,1, 0
+MCD,1, 5
+WMT,1, 1
+MRK,1, 20
+CAT,1, 1
+JNJ,1, 1
+MSFT,1, 1
+VZ,1, 1
+AMGN,1, 1
+NKE,0, 0
+GS,0, 0
+KO,1, 1
+MMM,1, 1
+JPM,1, 1
+CSCO,1, 1
+AXP,1, 1
+NVDA,1, 15
+UNH,1, 1
+V,0, 0
+HON,0, 0
+DIS,0, 0
+CVX,1, 9
+BA,0, 0
+CRM,0, 0
+SHW,0, 0
+PG,1, 1
+:    buy   shares    :=
+AMZN   0        0
+TRV    1        1
+AAPL   0        0
+IBM    1        5
+HD     1        1
+MCD    1        5
+WMT    1        1
+MRK    1       20
+CAT    1        1
+JNJ    1        1
+MSFT   1        1
+VZ     1        1
+AMGN   1        1
+NKE    0        0
+GS     0        0
+KO     1        1
+MMM    1        1
+JPM    1        1
+CSCO   1        1
+AXP    1        1
+NVDA   1       15
+UNH    1        1
+V      0        0
+HON    0        0
+DIS    0        0
+CVX    1        9
+BA     0        0
+CRM    0        0
+SHW    0   -1e-12
+PG     1        1

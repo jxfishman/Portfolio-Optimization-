@@ -1,0 +1,11 @@
+solve;
+
+# Write header
+printf "Ticker,Weight\n";
+
+# Print each row
+for {i in ASSETS} {
+    printf "%s,%.0f, %d\n", i, buy[i], shares[i];
+}
+
+display buy, shares;
