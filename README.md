@@ -230,7 +230,8 @@ Portfolios produced by the classical and D-Wave solvers were backtested over a t
 **Universe: DOW 30**
 **Budget:$10,000, Coskew limit: -0.15, maximum shares per stock: 100**
 #### Overall Performance
-  <table>
+
+<table>
         <thead>
             <tr>
                 <th>Solver</th>
@@ -259,9 +260,10 @@ Portfolios produced by the classical and D-Wave solvers were backtested over a t
                 <td>1.5 s</td>
             </tr>
         </tbody>
-    </table>
+</table>
 
-    <table>
+
+<table>
         <thead>
             <tr>
                 <th>Solver</th>
@@ -290,7 +292,7 @@ Portfolios produced by the classical and D-Wave solvers were backtested over a t
                 <td>3.15</td>
             </tr>
         </tbody>
-    </table>
+</table>
 
 *QPU Access Time:  the time to execute a single quantum machine instruction on a QPU.  Quantum anneal times are shown in green. There are multiple sampling cycles and so multiple annealing times.
 
@@ -299,318 +301,370 @@ Portfolios produced by the classical and D-Wave solvers were backtested over a t
 Source: D-Wave, ![Operation and Timing](https://docs.dwavequantum.com/en/latest/quantum_research/operation_timing.html?)
 
 
-Portfolios DOW 30
-Stock
-Number of Shares
-Price per share on 1/01/2024
-Cost
-D-Wave
-NLH
-Cost BARON
-Price per share on 4/02/2026
-Return D-Wave
-Return BARON
-D-Wave NLH
-BARON
-AAPL
-2
-0
-$183.73
-$381.10
-$0.00
-$255.92
-$144.38
-$0.00
-AMGN
-3
-1
-$277.64
-$806.69
-$268.90
-$347.94
-$210.89
-$70.30
-AMZN
-2
-0
-$149.93
-$303.88
-$0.00
-$209.77
-$119.68
-$0.00
-AXP
-4
-1
-$183.11
-$728.67
-$182.17
-$300.18
-$468.27
-$117.07
-BA
-0
-0
-$251.76
-$0.00
-$0.00
-$208.22
-$0.00
-$0.00
-CAT
-1
-1
-$283.14
-$286.00
-$286.00
-$717.22
-$434.08
-$434.08
-CRM
-1
-0
-$252.42
-$259.33
-$0.00
-$186.71
--$65.71
-$0.00
-CSCO
-12
-1
-$47.18
-$566.25
-$47.19
-$79.02
-$382.10
-$31.84
-CVX
-0
-9
-$135.63
-$0.00
-$1,218.06
-$198.97
-$0.00
-$570.06
-DIS
-1
-0
-$88.91
-$88.50
-$0.00
-$96.61
-$7.70
-$0.00
-GS
-0
-0
-$369.59
-$0.00
-$0.00
-$863.04
-$0.00
-$0.00
-HD
-1
-0
-$326.45
-$327.84
-$0.00
-$321.63
--$4.82
-$0.00
-HON
-1
-0
-$187.81
-$188.45
-$0.00
-$229.45
-$41.64
-$0.00
-IBM
-3
-5
-$151.08
-$458.99
-$764.98
-$248.16
-$291.25
-$485.41
-JNJ
-0
-1
-$149.66
-$0.00
-$146.64
-$243.04
-$0.00
-$93.38
-JPM
-10
-1
-$163.01
-$1,611.34
-$161.13
-$293.10
-$1,300.91
-$130.09
-KO
-9
-1
-$56.00
-$496.49
-$55.17
-$76.72
-$186.49
-$20.72
-MCD
-0
-5
-$281.83
-$0.00
-$1,406.62
-$307.14
-$0.00
-$126.56
-MMM
-1
-1
-$86.86
-$86.32
-$86.32
-$144.47
-$57.61
-$57.61
-MRK
-0
-20
-$105.46
-$0.00
-$2,030.53
-$120.87
-$0.00
-$308.27
-MSFT
-2
-1
-$364.59
-$739.34
-$369.67
-$373.46
-$17.74
-$8.87
-NKE
-0
-0
-$101.67
-$0.00
-$0.00
-$44.19
-$0.00
-$0.00
-NVDA
-35
-15
-$48.14
-$1,732.21
-$742.38
-$177.39
-$4,523.80
-$1,938.77
-PG
-2
-1
-$140.39
-$276.64
-$138.32
-$143.12
-$5.45
-$2.73
-SHW
-0
-0
-$299.04
-$0.00
-$0.00
-$318.00
-$0.00
-$0.00
-TRV
-0
-1
-$184.31
-$0.00
-$183.42
-$293.99
-$0.00
-$109.68
-UNH
-1
-1
-$514.26
-$501.99
-$501.99
-$277.26
--$237.00
--$237.00
-V
-0
-0
-$254.57
-$0.00
-$0.00
-$300.80
-$0.00
-$0.00
-VZ
-1
-1
-$33.02
-$32.02
-$32.02
-$48.67
-$15.64
-$15.64
-WMT
-1
-1
-$51.86
-$51.33
-$51.33
-$125.79
-$73.93
-$73.93
-Totals:
-93
-68
 
+<table>
+        <thead>
+            <tr>
+                <th rowspan="2">Stock</th>
+                <th colspan="2">Number of Shares</th>
+                <th rowspan="2">Price per share on 1/01/2024</th>
+                <th rowspan="2">Cost D-Wave NLH</th>
+                <th rowspan="2">Cost BARON</th>
+                <th rowspan="2">Price per share on 4/02/2026</th>
+                <th rowspan="2">Return D-Wave</th>
+                <th rowspan="2">Return BARON</th>
+            </tr>
+            <tr>
+                <th>D-Wave NLH</th>
+                <th>BARON</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td >AAPL</td>
+                <td>2</td>
+                <td>0</td>
+                <td>$183.73</td>
+                <td>$381.10</td>
+                <td>$0.00</td>
+                <td>$255.92</td>
+                <td>$144.38</td>
+                <td>$0.00</td>
+            </tr>
+            <tr>
+                <td >AMGN</td>
+                <td>3</td>
+                <td>1</td>
+                <td>$277.64</td>
+                <td>$806.69</td>
+                <td>$268.90</td>
+                <td>$347.94</td>
+                <td>$210.89</td>
+                <td>$70.30</td>
+            </tr>
+            <tr>
+                <td >AMZN</td>
+                <td>2</td>
+                <td>0</td>
+                <td>$149.93</td>
+                <td>$303.88</td>
+                <td>$0.00</td>
+                <td>$209.77</td>
+                <td>$119.68</td>
+                <td>$0.00</td>
+            </tr>
+            <tr>
+                <td >AXP</td>
+                <td>4</td>
+                <td>1</td>
+                <td>$183.11</td>
+                <td>$728.67</td>
+                <td>$182.17</td>
+                <td>$300.18</td>
+                <td>$468.27</td>
+                <td>$117.07</td>
+            </tr>
+            <tr>
+                <td >BA</td>
+                <td>0</td>
+                <td>0</td>
+                <td>$251.76</td>
+                <td>$0.00</td>
+                <td>$0.00</td>
+                <td>$208.22</td>
+                <td>$0.00</td>
+                <td>$0.00</td>
+            </tr>
+            <tr>
+                <td >CAT</td>
+                <td>1</td>
+                <td>1</td>
+                <td>$283.14</td>
+                <td>$286.00</td>
+                <td>$286.00</td>
+                <td>$717.22</td>
+                <td>$434.08</td>
+                <td>$434.08</td>
+            </tr>
+            <tr>
+                <td >CRM</td>
+                <td>1</td>
+                <td>0</td>
+                <td>$252.42</td>
+                <td>$259.33</td>
+                <td>$0.00</td>
+                <td>$186.71</td>
+                <td>-$65.71</td>
+                <td>$0.00</td>
+            </tr>
+            <tr>
+                <td >CSCO</td>
+                <td>12</td>
+                <td>1</td>
+                <td>$47.18</td>
+                <td>$566.25</td>
+                <td>$47.19</td>
+                <td>$79.02</td>
+                <td>$382.10</td>
+                <td>$31.84</td>
+            </tr>
+            <tr>
+                <td >CVX</td>
+                <td>0</td>
+                <td>9</td>
+                <td>$135.63</td>
+                <td>$0.00</td>
+                <td>$1,218.06</td>
+                <td>$198.97</td>
+                <td>$0.00</td>
+                <td>$570.06</td>
+            </tr>
+            <tr>
+                <td >DIS</td>
+                <td>1</td>
+                <td>0</td>
+                <td>$88.91</td>
+                <td>$88.50</td>
+                <td>$0.00</td>
+                <td>$96.61</td>
+                <td>$7.70</td>
+                <td>$0.00</td>
+            </tr>
+            <tr>
+                <td >GS</td>
+                <td>0</td>
+                <td>0</td>
+                <td>$369.59</td>
+                <td>$0.00</td>
+                <td>$0.00</td>
+                <td>$863.04</td>
+                <td>$0.00</td>
+                <td>$0.00</td>
+            </tr>
+            <tr>
+                <td >HD</td>
+                <td>1</td>
+                <td>0</td>
+                <td>$326.45</td>
+                <td>$327.84</td>
+                <td>$0.00</td>
+                <td>$321.63</td>
+                <td>-$4.82</td>
+                <td>$0.00</td>
+            </tr>
+            <tr>
+                <td >HON</td>
+                <td>1</td>
+                <td>0</td>
+                <td>$187.81</td>
+                <td>$188.45</td>
+                <td>$0.00</td>
+                <td>$229.45</td>
+                <td>$41.64</td>
+                <td>$0.00</td>
+            </tr>
+            <tr>
+                <td >IBM</td>
+                <td>3</td>
+                <td>5</td>
+                <td>$151.08</td>
+                <td>$458.99</td>
+                <td>$764.98</td>
+                <td>$248.16</td>
+                <td>$291.25</td>
+                <td>$485.41</td>
+            </tr>
+            <tr>
+                <td >JNJ</td>
+                <td>0</td>
+                <td>1</td>
+                <td>$149.66</td>
+                <td>$0.00</td>
+                <td>$146.64</td>
+                <td>$243.04</td>
+                <td>$0.00</td>
+                <td>$93.38</td>
+            </tr>
+            <tr>
+                <td >JPM</td>
+                <td>10</td>
+                <td>1</td>
+                <td>$163.01</td>
+                <td>$1,611.34</td>
+                <td>$161.13</td>
+                <td>$293.10</td>
+                <td>$1,300.91</td>
+                <td>$130.09</td>
+            </tr>
+            <tr>
+                <td >KO</td>
+                <td>9</td>
+                <td>1</td>
+                <td>$56.00</td>
+                <td>$496.49</td>
+                <td>$55.17</td>
+                <td>$76.72</td>
+                <td>$186.49</td>
+                <td>$20.72</td>
+            </tr>
+            <tr>
+                <td >MCD</td>
+                <td>0</td>
+                <td>5</td>
+                <td>$281.83</td>
+                <td>$0.00</td>
+                <td>$1,406.62</td>
+                <td>$307.14</td>
+                <td>$0.00</td>
+                <td>$126.56</td>
+            </tr>
+            <tr>
+                <td >MMM</td>
+                <td>1</td>
+                <td>1</td>
+                <td>$86.86</td>
+                <td>$86.32</td>
+                <td>$86.32</td>
+                <td>$144.47</td>
+                <td>$57.61</td>
+                <td>$57.61</td>
+            </tr>
+            <tr>
+                <td >MRK</td>
+                <td>0</td>
+                <td>20</td>
+                <td>$105.46</td>
+                <td>$0.00</td>
+                <td>$2,030.53</td>
+                <td>$120.87</td>
+                <td>$0.00</td>
+                <td>$308.27</td>
+            </tr>
+            <tr>
+                <td >MSFT</td>
+                <td>2</td>
+                <td>1</td>
+                <td>$364.59</td>
+                <td>$739.34</td>
+                <td>$369.67</td>
+                <td>$373.46</td>
+                <td>$8.87</td>
+                <td>$8.87</td>
+            </tr>
+            <tr>
+                <td >NKE</td>
+                <td>0</td>
+                <td>0</td>
+                <td>$101.67</td>
+                <td>$0.00</td>
+                <td>$0.00</td>
+                <td>$44.19</td>
+                <td>$0.00</td>
+                <td>$0.00</td>
+            </tr>
+            <tr>
+                <td >NVDA</td>
+                <td>35</td>
+                <td>15</td>
+                <td>$48.14</td>
+                <td>$1,732.21</td>
+                <td>$742.38</td>
+                <td>$177.39</td>
+                <td>$4,523.80</td>
+                <td>$1,938.77</td>
+            </tr>
+            <tr>
+                <td >PG</td>
+                <td>2</td>
+                <td>1</td>
+                <td>$140.39</td>
+                <td>$276.64</td>
+                <td>$138.32</td>
+                <td>$143.12</td>
+                <td>$5.45</td>
+                <td>$2.73</td>
+            </tr>
+            <tr>
+                <td >SHW</td>
+                <td>0</td>
+                <td>0</td>
+                <td>$299.04</td>
+                <td>$0.00</td>
+                <td>$0.00</td>
+                <td>$318.00</td>
+                <td>$0.00</td>
+                <td>$0.00</td>
+            </tr>
+            <tr>
+                <td >TRV</td>
+                <td>0</td>
+                <td>1</td>
+                <td>$184.31</td>
+                <td>$0.00</td>
+                <td>$183.42</td>
+                <td>$293.99</td>
+                <td>$0.00</td>
+                <td>$109.68</td>
+            </tr>
+            <tr>
+                <td >UNH</td>
+                <td>1</td>
+                <td>1</td>
+                <td>$514.26</td>
+                <td>$501.99</td>
+                <td>$501.99</td>
+                <td>$277.26</td>
+                <td class="negative">-$237.00</td>
+                <td class="negative">-$237.00</td>
+            </tr>
+            <tr>
+                <td >V</td>
+                <td>0</td>
+                <td>0</td>
+                <td>$254.57</td>
+                <td>$0.00</td>
+                <td>$0.00</td>
+                <td>$300.80</td>
+                <td>$0.00</td>
+                <td>$0.00</td>
+            </tr>
+            <tr>
+                <td >VZ</td>
+                <td>1</td>
+                <td>1</td>
+                <td>$33.02</td>
+                <td>$32.02</td>
+                <td>$32.02</td>
+                <td>$48.67</td>
+                <td>$15.64</td>
+                <td>$15.64</td>
+            </tr>
+            <tr>
+                <td >WMT</td>
+                <td>1</td>
+                <td>1</td>
+                <td>$51.86</td>
+                <td>$51.33</td>
+                <td>$51.33</td>
+                <td>$125.79</td>
+                <td>$73.93</td>
+                <td>$73.93</td>
+            </tr>
+            <tr >
+                <td >Totals:</td>
+                <td>93</td>
+                <td>68</td>
+                <td></td>
+                <td>$9,923.38</td>
+                <td>$8,672.84</td>
+                <td></td>
+                <td>$7,794.03</td>
+                <td>$4,358.01</td>
+            </tr>
+        </tbody>
+    </table>
 
-$9,923.38
-$8,672.84
-
-
-$7,974.03
-$4,358.01
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+         
 
 **Universe: 80 equities**
 60 Bond ETFs, Gold ETF, Silver ETF, Dow 30, 30 dividend paying real estate stocks (model does not account for dividends)
