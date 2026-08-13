@@ -300,7 +300,7 @@ Portfolios produced by the classical and D-Wave solvers were backtested over a t
 Source: D-Wave, ![Operation and Timing](https://docs.dwavequantum.com/en/latest/quantum_research/operation_timing.html?)
 
 
-
+####Allocations
 <table>
         <thead>
             <tr>
