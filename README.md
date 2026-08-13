@@ -110,65 +110,105 @@ Table 1
 
 
 
-##Method
+## Method
 
-Stock Universe and Historical Data
+**Stock Universe and Historical Data**
+
 A list of equities was compiled using Yahoo Finance screeners.  I diversified asset types by including Exchange Traded Funds (ETFs) that are limited to different types of bonds (government and corporate included) and EFTs that track the commodity prices of gold and silver.  From the over 10,000 equities with available data on Yahoo Finance, I filtered for bond ETFs, two ETFs that tracked the metals gold and silver, and all stocks listed on the  Dow, S & P, and  Russell 2000 indexes.  Unfortunately, I was constrained by the size of the RAM of the virtual machine I was using on my Github codespace (16 GB).  The coskew tensor grows exponentially O(n^3) with the number of equities and is a NumPy array that I believe must exist in a contiguous memory block.  I didn’t have enough time to find a work around, but I did try exhaustively to find out why Github would not give me the option for a higher performance machine with at least 32GB RAM.  I upgraded to Enterprise level and still was not offered a better machine option.  I therefore filtered the stocks based on several parameters to exclude higher risk companies.  Historical daily closing price data for the filtered set of equities over the three year period from 1/1/2021 to 12/31/2023 were downloaded using the YFinance python library.  The mean returns, covariance matrix, and coskewness tensor were calculated for all stocks using Python libraries including NumPy and Pandas.
-Filters
-Price (Intraday)
- > $10
-Index
-Dow, S&P, Russel 2000
-Employees (FY)
-> 200
-Market Cap (Intraday)
-> $1B
-Avg Vol (3 month)
-> 500K
-Cash on Hand
-> $20M
-Debt/Equity (D/E) %
-Short % of Shares Outstanding
-< 200%
-Short % of Shares Outstanding 
-< 15%
-% of Shares Outstanding Held by Insider
-< 30%
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left;">Filter Metric</th>
+      <th style="text-align: left;">Requirement</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Price (Intraday)</td>
+      <td>&gt; $10</td>
+    </tr>
+    <tr>
+      <td>Index</td>
+      <td>Dow, S&amp;P, Russell 2000</td>
+    </tr>
+    <tr>
+      <td>Employees (FY)</td>
+      <td>&gt; 200</td>
+    </tr>
+    <tr>
+      <td>Market Cap (Intraday)</td>
+      <td>&gt; $1B</td>
+    </tr>
+    <tr>
+      <td>Avg Vol (3 month)</td>
+      <td>&gt; 500K</td>
+    </tr>
+    <tr>
+      <td>Cash on Hand</td>
+      <td>&gt; $20M</td>
+    </tr>
+    <tr>
+      <td>Debt/Equity (D/E) %</td>
+      <td>&lt; 200%</td>
+    </tr>
+    <tr>
+      <td>Short % of Shares Outstanding</td>
+      <td>&lt; 15%</td>
+    </tr>
+    <tr>
+      <td>% of Shares Outstanding Held by Insider</td>
+      <td>&lt; 30%</td>
+    </tr>
+  </tbody>
+</table>
 
 
 
-Objective Function and Constraints
+**Objective Function and Constraints** 
+
 A QUBO was formulated to serve as the objective function of the optimization problem.  Both the classical BARON model and the D-Wave NL model implemented this same objective function:
+
+$$\gamma \left( \sum_{i,j} \left( \frac{\text{shares}_i \cdot \text{price}_i}{\text{budget}} \right) \left( \frac{\text{shares}_j \cdot \text{price}_j}{\text{budget}} \right) \text{cov}_{i,j} \right) - (1 - \gamma) \left( \sum_i \left( \frac{\text{shares}_i \cdot \text{price}_i}{\text{budget}} \right) \text{return}_i \right)$$
+
+
 The problem involves  two sets of decision variables, “shares” and “stocks”.  In the above equation, the  integer variable “shares” holds the number of shares to be bought for each stock under consideration.  A binary variable, labeled  “stocks” in the constraints holds a 1 if the stock is chosen for the portfolio and a 0 if it is not.
-Both models imposed the following constraints:
-Do not allocate shares if stock was not chosen and do not allocate more than 100 shares to any stock:
-   sharesi <= 100* stocksi
-If a stock is selected, buy at least one share:        sharesi  >= stocksi 
-Use at least 90% of the allocated budget.          insharesi*pricei >= budget*0.90    
-Do not exceed the specified budget:                  in sharesi * pricei <=budget
-Choose exactly 20 stocks for the portfolio:         in stocksi = 20
-The skew of the portfolio should be greater than a minimum target skew of -0.15.
+Both models imposed the following constraints: 
+
+
+1. Do not allocate shares if stock was not chosen and do not allocate more than 100 shares to any stock:
+   $$shares_i <= 100* stocks_i$$
+2. If a stock is selected, buy at least one share:        $$shares_i  >= stocks_i$$ 
+3. Use at least 90% of the allocated budget.          $$\sum_{i}^n \left(shares_i*price_i \right) >= 0.90 * budget$$    
+4. Do not exceed the specified budget:                $$\sum_{i}^n \left(shares_i*price_i \right) <= budget$$
+5. Choose exactly 20 stocks for the portfolio:        $$\sum_{i}^n stocks_i = 20$$
+6. The skew of the portfolio should be greater than a minimum target skew of -0.15.
        
 
+**Classical Solvers**
 
-
-
-Classical Solvers
 State of the art classical MINLP solvers use branch and bound algorithms to find optimal solutions.  Branch and bound outperforms brute force search by pruning branches of the search space that are determined to be unable to produce an optimal result.  Meta heuristics like simulated annealing and genetic algorithms, are used in tandem with branch and bound to further improve efficiency.9
 I did not perform an exhaustive search for the best classical model to use for comparison.  The BARON solver handles MINLPs, outperforms or matches the performance of other comparable solvers against benchmarks and is widely regarded as state of the art.10  CPLEX and IPOPT solvers were also tested with problems that did not include skew.  I used CPLEX to test out my problem before submitting it to NEOS or to the D-Wave hybrid solvers so that I didn’t waste my allocated hybrid solver time.  
 For the BARON model,  the objective function and constraints were encoded in AMPL and submitted to the UW-Madison NEOS server.   The BARON and D-Wave NLM implementations share all the same constraints and have equivalent objective functions.
-D-Wave Implementation
+
+
+**D-Wave Implementation**
+
 Two D-Wave model types were implemented:  CQM and NLM.  The CQM does not support third order terms so the skew constraint was not included in its implementation.  Models were run on D-Wave’s hybrid solvers. D-Wave had me attend a Zoom meeting with a salesman and technical advisor before approving me for the 3 month launch program.  The Leap dashboard indicates that I have an hour of solver time.  I don’t know if that is an hour of time for the month or an hour of time for the entire trial period.  
-Code
+
+
+**Code**
+
 The Data_Collection_CPLEX_AMPL.ipynb file contains Python functions for a number of purposes:
-Downloading YFinance data: get_stocks_from_screener()
-Calculating mean, covariance, and coskew: get_stock_info()
-Running the CPLEX solver: run_CPLEX()
-Backtesting solutions (calculating return, risk, and Sharpe ratio for a portfolio): backtest(), risk()
-Generating AMPL .dat file to submit to the NEOS servers: generate_ampl_dat()
+1. Downloading YFinance data: get_stocks_from_screener()
+2. Calculating mean, covariance, and coskew: get_stock_info()
+3. Running the CPLEX solver: run_CPLEX()
+4. Backtesting solutions (calculating return, risk, and Sharpe ratio for a portfolio): backtest(), risk()
+5. Generating AMPL .dat file to submit to the NEOS servers: generate_ampl_dat()
+   
 Portfolio_BARON.mod is the AMPL model that was submitted to BARON.  Portfolio_BARON.dat is the AMPL data file that was generated with the Python function generate_ampl_dat() found in Data_Collection_CPLEX_AMPL.ipynb.
+
 The GitHub codespace is derived from  a D-Wave template codespace.  The template provides a preconfigured development environment with all Ocean libraries already installed.  The CQM model generating function, build_cqm() is found in CQM_Model.py.  The function portfolio_opt() found in NonLinear_Model.py builds the NL model. 
-Here is the GitHub repository containing my D-Wave code for this project.  All data collecting and gathering code can be found in Data_Collection_CPLEX_AMPL.ipynb.  
+All data collecting and gathering code can be found in Data_Collection_CPLEX_AMPL.ipynb.  
 Files included in uploaded folder
 BARON_results_DOW30.txt - Direct output from BARON for DOW 30 problem
 Bond ETFs.csv - Yahoo screener file for bond etfs
@@ -542,7 +582,7 @@ $4,358.01
 
 
 
-Universe: 80 equities
+**Universe: 80 equities**
 60 Bond ETFs, Gold ETF, Silver ETF, Dow 30, 30 dividend paying real estate stocks (model does not account for dividends)
 Budget:$1,000,000, Coskew limit: -0.15, maximum shares per stock: 10000
 dwave.cloud.exceptions.SolverFailureError: The size of the states must not exceed 786432000. 
@@ -588,3 +628,12 @@ $900,005.03
 0.5
 
 
+## Discussion
+
+The D-Wave hybrid NL solver performed well compared to the BARON model for my small 30 stock MINLP test case. It delivered a portfolio that had greater return, lower risk, and met the cardinality constraint of the problem (BARON missed it significantly). For the experiments with the larger universe of 590 stocks, the D-Wave CQM respected the cardinality constraint better than CPLEX did with being asked to choose 100 stocks from a universe of 590 stocks, but produced a substantially poorer performing portfolio. I could not get the CPLEX solver to choose more than 30 to 40 stocks for this case, so it is hard to fairly compare the two. However, when asked to choose 30 out of 590, the CQM only chose 19, while CPLEX chose the full 30. I could not find any constraints that would make it infeasible for the CQM to choose the entire number of 30 stocks.
+
+Coskewness dramatically changes the problem and can not be handled for large problem sizes with the limited computing power I have access to. The size of the coskew tensor grows exponentially with the number of stocks and limited the size of the problem that I could run. For a problem size of n stocks, there are \(\frac{(k+n-1)!}{k!(n-1)!}\) combinations, k = 3. For 30 stocks, this number of coskewness coefficients is 4960. For 1500 stocks it is 5.64 E+8. If 32 bit floating point numbers are used, 1500 stocks require 2.3 GB of memory. NEOS limits uploaded file size to 16 MB, so I could not compare performance to BARON using more than around 250 stocks.
+
+Adding the quadratic covariance term of my QUBO to the CQM objective function using the Ocean SDK was quite slow if working with more than 100 or so stocks. I tried using only 32 bit NumPy arrays and finding more efficient implementations, (trying to avoid inefficient nested for loops when possible) which did deliver a speed up, but was not successful in getting the D-Wave models to build quickly on the GitHub codespace. The largest problem size I solved consistently using the CQM (no coskew) is 590 stocks. Adding the coskewness constraint makes matters even worse. I was able to optimize the nonlinear model building code, but it still took 2 minutes to execute for a problem of around 80 stocks.
+
+I spoke with a D-Wave technical advisor, Ken Robbins, when I signed up for the LaunchPad account. His opinion was that portfolio optimization is not an area in which quantum annealing will excel over classical solvers. The limited results of this project support that this does seem to be the case. Classical solvers appear to more than adequately meet the real world demands of investment managers. The annealer, however, did outperform BARON with the coskewness third order MINLP, so perhaps there is some utility in the area of finance or another field in which a MINLP like this may occur. Robbins suggested a trade timing project, but I was already committed to portfolio optimization. There is a lot of exploration that can be done using the different D-Wave models and adjusting parameters and constraints. Code optimization skills are needed to accelerate the processing of large problems. It was interesting to experiment with the models and see how their portfolios changed under the different constraints. Further investigation would help with understanding more about the strengths and weaknesses of D-Wave’s hybrid quantum solvers in the context of MINLPs. The work that I have done, although it required a lot of research and time, did not sufficiently enlighten me.
