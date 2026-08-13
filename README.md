@@ -664,51 +664,29 @@ Source: D-Wave, ![Operation and Timing](https://docs.dwavequantum.com/en/latest/
     </table>
 
          
+**Universe:** 80 equities
 
-**Universe: 80 equities**
 60 Bond ETFs, Gold ETF, Silver ETF, Dow 30, 30 dividend paying real estate stocks (model does not account for dividends)
-Budget:$1,000,000, Coskew limit: -0.15, maximum shares per stock: 10000
-dwave.cloud.exceptions.SolverFailureError: The size of the states must not exceed 786432000. 
-With this problem I got an error from dwave.  I tried reimplementing the NL model in a more memory efficient way but got poor results as can be seen in the chart below.  I have not been able to resolve this poor performance.  This model performed similarly to the first NL implementation on the DOW 30 problem  .  
-Overall Performance
-Solver
-Number of Stocks
-Number of Variables
-Number of Constraints
-Execution Time
-QPU Access Time*
-BARON
-80
-160
-164
-3 m 30 s .
-n/a
-D-Wave hybrid NL
-80
-160
-164
-1 m 0.34 s
-1.738 s 
 
+**Budget:** $1,000,000, **Coskew limit:** -0.15, **maximum shares per stock:** 10000
 
-Solver
-Number of Stocks Chosen (Constrained to exactly 20)
-Amount of $10,000 Budget Spent
-Portfolio Return %
-Portfolio Risk %
-Sharp Ratio
-BARON
-20
-$1,001,829.99 
-48.87%
-15.04
-2.98
-D-Wave hybrid NL
-20
-$900,005.03 
-12.41%
-16.87%
-0.5
+`dwave.cloud.exceptions.SolverFailureError: The size of the states must not exceed 786432000.`
+
+With this problem I got an error from dwave. I tried reimplementing the NL model in a more memory efficient way but got poor results as can be seen in the chart below. I have not been able to resolve this poor performance. This model performed similarly to the first NL implementation on the DOW 30 problem .
+
+### Overall Performance
+
+| Solver | Number of Stocks | Number of Variables | Number of Constraints | Execution Time | QPU Access Time* |
+| :--- | :---: | :---: | :---: | :---: | :---: |
+| BARON | 80 | 160 | 164 | 3 m 30 s . | n/a |
+| D-Wave hybrid NL | 80 | 160 | 164 | 1 m 0.34 s | 1.738 s |
+
+<br>
+
+| Solver | Number of Stocks Chosen (Constrained to exactly 20) | Amount of $1,000,000 Budget Spent | Portfolio Return % | Portfolio Risk % | Sharp Ratio |
+| :--- | :---: | :---: | :---: | :---: | :---: |
+| BARON | 20 | $1,001,829.99 | 48.87% | 15.04 | 2.98 |
+| D-Wave hybrid NL | 20 | $900,005.03 | 12.41% | 16.87% | 0.5 |
 
 
 ## Discussion
