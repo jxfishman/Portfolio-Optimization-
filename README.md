@@ -208,18 +208,20 @@ The Data_Collection_CPLEX_AMPL.ipynb file contains Python functions for a number
 Portfolio_BARON.mod is the AMPL model that was submitted to BARON.  Portfolio_BARON.dat is the AMPL data file that was generated with the Python function generate_ampl_dat() found in Data_Collection_CPLEX_AMPL.ipynb.
 
 The GitHub codespace is derived from  a D-Wave template codespace.  The template provides a preconfigured development environment with all Ocean libraries already installed.  The CQM model generating function, build_cqm() is found in CQM_Model.py.  The function portfolio_opt() found in NonLinear_Model.py builds the NL model. 
+
 All data collecting and gathering code can be found in Data_Collection_CPLEX_AMPL.ipynb.  
-Files included in uploaded folder
-BARON_results_DOW30.txt - Direct output from BARON for DOW 30 problem
-Bond ETFs.csv - Yahoo screener file for bond etfs
-Commands.run - Command file used when submitting BARON model to NEOS
-Data_Collection_CPLEX_AMPL.ipynb - Data collection and processing, CPLEX code
-portfolio_BARON.dat - BARON data submitted to NEOS for 80 stock problem
-portfolio_BARON.mod - BARON model submitted to NEOS
-Real_Estate.csv - Yahoo screener file for real estate etfs
-The Dow The Dow The Dow Right Now.csv - Yahoo screener file for the DOW 30
-GitHub repository:  https://github.com/Midway-Road/Portfolio-Optimization-
-Backtesting
+Files included in classical_methods folder:
+
+-BARON_results_DOW30.txt - Direct output from BARON for DOW 30 problem
+-Bond ETFs.csv - Yahoo screener file for bond etfs
+-Commands.run - Command file used when submitting BARON model to NEOS
+-Data_Collection_CPLEX_AMPL.ipynb - Data collection and processing, CPLEX code
+-portfolio_BARON.dat - BARON data submitted to NEOS for 80 stock problem
+-portfolio_BARON.mod - BARON model submitted to NEOS
+-Real_Estate.csv - Yahoo screener file for real estate etfs
+-The Dow The Dow The Dow Right Now.csv - Yahoo screener file for the DOW 30
+
+**Backtesting**
 Portfolios produced by the classical and D-Wave solvers were backtested over a time period from 1/1/24 to 4/14/2026.  The return, risk, and sharp ratio were computed for the backtested portfolios.
 Results
 Universe: DOW 30
