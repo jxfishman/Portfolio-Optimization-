@@ -25,7 +25,7 @@ Portfolio optimization is mathematically modeled as a Quadratic Unconstrained Bi
 $$\min_{x \in \{0,1\}^n} \left( \sum_{i=1}^n \sum_{j=1}^n Q_{ij} x_i x_j + \sum_{i=1}^n b_i x_i \right)$$
 $$\text{Eq. 1 Quadratic Unconstrained Binary Optimization (QUBO) problem}$$
 
-Eq. 1 shows an example QUBO minimization equation.  A solver would choose values for binary variables in the vector x such that the sum of all the terms is minimized.  The first term in the QUBO problem incorporates the strengths of the couplings between elements into the equation.  For example, if  Qij is highly negative, the system is incentivized to set  both xi and xj to 1.  The second term represents the cost or penalty for setting xi to 1.  If bi is high, the system is incentivized not to include xi.
+Eq. 1 shows an example QUBO minimization equation.  A solver would choose values for binary variables in the vector x such that the sum of all the terms is minimized.  The first term in the QUBO problem incorporates the strengths of the couplings between elements into the equation.  For example, if  $$Q_ij$$ is highly negative, the system is incentivized to set  both $$x_i$$ and $$x_j$$ to 1.  The second term represents the cost or penalty for setting $$x_i$$ to 1.  If $$b_i$$ is high, the system is incentivized not to include $$x_i$$.
 
 $$\min H' = \alpha \left( \sum_{i=1}^n \sum_{j=1}^n \sigma_{ij} p_i x_i p_j x_j \right) - \left( \sum_{i=1}^n \bar{r}_i p_i x_i \right) + \lambda \left( \sum_{i=1}^n p_i x_i - B \right)^2$$
 $$\text{Eq. 2 Portfolio optimization QUBO}$$
@@ -112,7 +112,7 @@ Table 1
 
 ## Method
 
-**Stock Universe and Historical Data**
+### Stock Universe and Historical Data
 
 A list of equities was compiled using Yahoo Finance screeners.  I diversified asset types by including Exchange Traded Funds (ETFs) that are limited to different types of bonds (government and corporate included) and EFTs that track the commodity prices of gold and silver.  From the over 10,000 equities with available data on Yahoo Finance, I filtered for bond ETFs, two ETFs that tracked the metals gold and silver, and all stocks listed on the  Dow, S & P, and  Russell 2000 indexes.  Unfortunately, I was constrained by the size of the RAM of the virtual machine I was using on my Github codespace (16 GB).  The coskew tensor grows exponentially O(n^3) with the number of equities and is a NumPy array that I believe must exist in a contiguous memory block.  I didn’t have enough time to find a work around, but I did try exhaustively to find out why Github would not give me the option for a higher performance machine with at least 32GB RAM.  I upgraded to Enterprise level and still was not offered a better machine option.  I therefore filtered the stocks based on several parameters to exclude higher risk companies.  Historical daily closing price data for the filtered set of equities over the three year period from 1/1/2021 to 12/31/2023 were downloaded using the YFinance python library.  The mean returns, covariance matrix, and coskewness tensor were calculated for all stocks using Python libraries including NumPy and Pandas.
 <table>
@@ -164,7 +164,7 @@ A list of equities was compiled using Yahoo Finance screeners.  I diversified as
 
 
 
-**Objective Function and Constraints** 
+### Objective Function and Constraints 
 
 A QUBO was formulated to serve as the objective function of the optimization problem.  Both the classical BARON model and the D-Wave NL model implemented this same objective function:
 
@@ -184,19 +184,19 @@ Both models imposed the following constraints:
 6. The skew of the portfolio should be greater than a minimum target skew of -0.15.
        
 
-**Classical Solvers**
+### Classical Solvers
 
 State of the art classical MINLP solvers use branch and bound algorithms to find optimal solutions.  Branch and bound outperforms brute force search by pruning branches of the search space that are determined to be unable to produce an optimal result.  Meta heuristics like simulated annealing and genetic algorithms, are used in tandem with branch and bound to further improve efficiency.9
 I did not perform an exhaustive search for the best classical model to use for comparison.  The BARON solver handles MINLPs, outperforms or matches the performance of other comparable solvers against benchmarks and is widely regarded as state of the art.10  CPLEX and IPOPT solvers were also tested with problems that did not include skew.  I used CPLEX to test out my problem before submitting it to NEOS or to the D-Wave hybrid solvers so that I didn’t waste my allocated hybrid solver time.  
 For the BARON model,  the objective function and constraints were encoded in AMPL and submitted to the UW-Madison NEOS server.   The BARON and D-Wave NLM implementations share all the same constraints and have equivalent objective functions.
 
 
-**D-Wave Implementation**
+### D-Wave Implementation
 
 Two D-Wave model types were implemented:  CQM and NLM.  The CQM does not support third order terms so the skew constraint was not included in its implementation.  Models were run on D-Wave’s hybrid solvers. D-Wave had me attend a Zoom meeting with a salesman and technical advisor before approving me for the 3 month launch program.  The Leap dashboard indicates that I have an hour of solver time.  I don’t know if that is an hour of time for the month or an hour of time for the entire trial period.  
 
 
-**Code**
+### Code
 
 The Data_Collection_CPLEX_AMPL.ipynb file contains Python functions for a number of purposes:
 1. Downloading YFinance data: get_stocks_from_screener()
@@ -210,64 +210,92 @@ Portfolio_BARON.mod is the AMPL model that was submitted to BARON.  Portfolio_BA
 The GitHub codespace is derived from  a D-Wave template codespace.  The template provides a preconfigured development environment with all Ocean libraries already installed.  The CQM model generating function, build_cqm() is found in CQM_Model.py.  The function portfolio_opt() found in NonLinear_Model.py builds the NL model. 
 
 All data collecting and gathering code can be found in Data_Collection_CPLEX_AMPL.ipynb.  
+
 Files included in classical_methods folder:
 
--BARON_results_DOW30.txt - Direct output from BARON for DOW 30 problem
--Bond ETFs.csv - Yahoo screener file for bond etfs
--Commands.run - Command file used when submitting BARON model to NEOS
--Data_Collection_CPLEX_AMPL.ipynb - Data collection and processing, CPLEX code
--portfolio_BARON.dat - BARON data submitted to NEOS for 80 stock problem
--portfolio_BARON.mod - BARON model submitted to NEOS
--Real_Estate.csv - Yahoo screener file for real estate etfs
--The Dow The Dow The Dow Right Now.csv - Yahoo screener file for the DOW 30
+- BARON_results_DOW30.txt - Direct output from BARON for DOW 30 problem
+- Bond ETFs.csv - Yahoo screener file for bond etfs
+- Commands.run - Command file used when submitting BARON model to NEOS
+- Data_Collection_CPLEX_AMPL.ipynb - Data collection and processing, CPLEX code
+- portfolio_BARON.dat - BARON data submitted to NEOS for 80 stock problem
+- portfolio_BARON.mod - BARON model submitted to NEOS
+- Real_Estate.csv - Yahoo screener file for real estate etfs
+- The Dow The Dow The Dow Right Now.csv - Yahoo screener file for the DOW 30
 
-**Backtesting**
+### Backtesting
 Portfolios produced by the classical and D-Wave solvers were backtested over a time period from 1/1/24 to 4/14/2026.  The return, risk, and sharp ratio were computed for the backtested portfolios.
-Results
-Universe: DOW 30
-Budget:$10,000, Coskew limit: -0.15, maximum shares per stock: 100
-Overall Performance
-Solver
-Number of Stocks
-Number of Variables
-Number of Constraints
-Execution Time
-QPU Access Time*
-BARON
-30
-60
-64
-4 m : 43 s
-n/a
-D-Wave hybrid NL
-30
-60
-64
-1 m :02 s 
-1.5 s
 
 
-Solver
-Number of Stocks Chosen (Constrained to exactly 20)
-Amount of $10,000 Budget Spent
-Portfolio Return %
-Portfolio Risk %
-Sharp Ratio
-BARON
-14
-$8,672.83 
-43.56
-26.02
-1.52
-D-Wave hybrid NL
-20
-$9,923.40 
-79.74
-24.04
-3.15
+## Results
+**Universe: DOW 30**
+**Budget:$10,000, Coskew limit: -0.15, maximum shares per stock: 100**
+#### Overall Performance
+  <table>
+        <thead>
+            <tr>
+                <th>Solver</th>
+                <th>Number of Stocks</th>
+                <th>Number of Variables</th>
+                <th>Number of Constraints</th>
+                <th>Execution Time</th>
+                <th>QPU Access Time*</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>BARON</td>
+                <td>30</td>
+                <td>60</td>
+                <td>64</td>
+                <td>4 m : 43 s</td>
+                <td>n/a</td>
+            </tr>
+            <tr>
+                <td>D-Wave hybrid NL</td>
+                <td>30</td>
+                <td>60</td>
+                <td>64</td>
+                <td>1 m : 02 s</td>
+                <td>1.5 s</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- Second Table -->
+    <table>
+        <thead>
+            <tr>
+                <th>Solver</th>
+                <th>Number of Stocks Chosen (Constrained to exactly 20)</th>
+                <th>Amount of $10,000 Budget Spent</th>
+                <th>Portfolio Return %</th>
+                <th>Portfolio Risk %</th>
+                <th>Sharp Ratio</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>BARON</td>
+                <td>14</td>
+                <td>$8,672.83</td>
+                <td>43.56</td>
+                <td>26.02</td>
+                <td>1.52</td>
+            </tr>
+            <tr>
+                <td>D-Wave hybrid NL</td>
+                <td>20</td>
+                <td>$9,923.40</td>
+                <td>79.74</td>
+                <td>24.04</td>
+                <td>3.15</td>
+            </tr>
+        </tbody>
+    </table>
 
 *QPU Access Time:  the time to execute a single quantum machine instruction on a QPU.  Quantum anneal times are shown in green. There are multiple sampling cycles and so multiple annealing times.
-.
+![timing](images/timing.png)
+
 Source: D-Wave, Operation and Timing 
 
 
