@@ -261,7 +261,6 @@ Portfolios produced by the classical and D-Wave solvers were backtested over a t
         </tbody>
     </table>
 
-    <!-- Second Table -->
     <table>
         <thead>
             <tr>
@@ -294,9 +293,10 @@ Portfolios produced by the classical and D-Wave solvers were backtested over a t
     </table>
 
 *QPU Access Time:  the time to execute a single quantum machine instruction on a QPU.  Quantum anneal times are shown in green. There are multiple sampling cycles and so multiple annealing times.
-![timing](images/QPU_access_time.png.png)
 
-Source: D-Wave, [Operation and Timing](https://docs.dwavequantum.com/en/latest/quantum_research/operation_timing.html?_gl=1*1hiyui7*_gcl_au*Mjk4MjY2NzI1LjE3NzE1NDM0MDYuMTA3NzkxNDQyNy4xNzc0NTc0Mzg4LjE3NzQ1NzQzODc.*_ga*MTM2MzMzNjA0MC4xNzcxNTQzNDA4*_ga_DXNKH9HE3W*czE3NzY1MTc0MTQkbzI3JGcxJHQxNzc2NTE3NDIzJGo1MSRsMCRoMA..#qpu-timing-breakdown-access)
+![Operation and Timing image](images/QPU_access_time.png)
+
+Source: D-Wave, ![Operation and Timing](https://docs.dwavequantum.com/en/latest/quantum_research/operation_timing.html?)
 
 
 Portfolios DOW 30
